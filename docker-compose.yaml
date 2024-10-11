@@ -1,0 +1,6 @@
+services:
+  app:
+    build: .
+    volumes:
+      - ./.env:/home/app/.env:ro 
+      - ./videos:/home/app/videos #перед двоеточием укажите свою директорию, в которой находятся папки с видео

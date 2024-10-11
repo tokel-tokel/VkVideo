@@ -63,7 +63,7 @@ class UploadTaskCreator:
         codec_name = None
         try:
             codec_name = get_video_codec(rfp)
-        except:
+        except Exception as e:
             return None
         if codec_name is None:
             return None
@@ -111,14 +111,16 @@ class VideoWorker:
             error = task.status == "error"
         inp = 'n'
         if error:
-            inp = input("Do you want to retry upload videos? y/n ")
+            print("Do you want to retry upload videos? y/n ")
+            inp = input()
             if inp == 'y':
                 self.run_upload_tasks()
         if inp == 'n':
             if self.delete_tasks:
                 for key in self.delete_tasks.keys():
                     print(key)
-                inp = input("Do you want to delete these files? y/n ")
+                print("Do you want to delete these files? y/n ")
+                inp = input()
                 if inp == 'y':
                     for task in self.delete_tasks.values():
                         task.run()
